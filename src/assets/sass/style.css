@@ -1,0 +1,12 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#leftSider .logo {
+  height: 60px;
+}
+#leftSider .logo img {
+  height: 36px;
+}/*# sourceMappingURL=style.css.map */

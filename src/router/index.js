@@ -1,25 +1,46 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    redirect: "/dashboard",
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import("../views/dashboard/index.vue"),
+    meta: { authRequired: true },
+  },
+  {
+    path: '/customer',
+    name: 'customer',
+    component: () => import("../views/customer/index.vue"),
+    meta: { authRequired: true },
+  },
+  {
+    name: "PageNotFound",
+    path: "/:pathMatch(.*)*",
+    component: () => import("../views/PageNotFound.vue"),
+    meta: { authRequired: true },
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  linkActiveClass: "",
+  linkExactActiveClass: "",
 })
+
+// router.beforeEach((routeTo, routefrom, next) => {
+//   const authRequired = routeTo.matched.some((route) => route.meta.authRequired);
+//   const loggedIn = localStorage.getItem("user");
+//   if (authRequired && !loggedIn) {
+//     next("/login");
+//   } else {
+//     next();
+//   }
+// });
 
 export default router

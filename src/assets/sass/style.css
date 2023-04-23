@@ -9,4 +9,8 @@
 }
 #leftSider .logo img {
   height: 36px;
+}
+#leftSider .ant-menu-item a {
+  color: #4E5155;
+  text-decoration: none;
 }/*# sourceMappingURL=style.css.map */

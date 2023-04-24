@@ -1,4 +1,4 @@
-# cloudext
+# vue-dashboard
 
 ## Project setup
 ```

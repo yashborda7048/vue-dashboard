@@ -13,4 +13,8 @@
 #leftSider .ant-menu-item a {
   color: #4E5155;
   text-decoration: none;
+}
+#leftSider .ant-menu-dark .ant-menu-item a {
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
 }/*# sourceMappingURL=style.css.map */

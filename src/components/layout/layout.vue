@@ -7,141 +7,51 @@
                 </div>
                 <div v-else class="d-flex justify-content-center">
                     <img src="../../assets/logo.png" alt="logo">
-                    <h4 class="ms-2">Cloud<span>Ext</span></h4>
+                    <h4 class="ms-2" :class="this.theme == 'dark' ? 'text-white' : ''">Yash<span>Borda</span></h4>
                 </div>
             </div>
             <a-menu class="menu-list" v-model="selectedKeys" :theme="this.theme" mode="inline">
-                <a-menu-item key="1" :class="this.$route.name == 'dashboard' ? 'ant-menu-item-selected' : ''">
-                    <router-link to="/dashboard">
-                        <appstore-outlined />
-                        <span>Dashboard</span>
-                    </router-link>
-                </a-menu-item>
-                <a-menu-item key="2" :class="this.$route.name == 'customer' ? 'ant-menu-item-selected' : ''">
-                    <router-link to="/customer">
-                        <user-add-outlined />
-                        <span>Customer</span>
-                    </router-link>
-                </a-menu-item>
-                <a-menu-item key="3" :class="this.$route.name == 'customers-map-view' ? 'ant-menu-item-selected' : ''">
-                    <router-link to="/customers">
-                        <environment-outlined />
-                        <span>Customer Map View</span>
-                    </router-link>
-                </a-menu-item>
-                <a-menu-item key="4" :class="this.$route.name == 'reseller' ? 'ant-menu-item-selected' : ''">
-                    <router-link to="/reseller">
-                        <user-outlined />
-                        <span>Reseller</span>
-                    </router-link>
-                </a-menu-item>
-                <a-menu-item key="5" :class="this.$route.name == 'userIpList' ? 'ant-menu-item-selected' : ''">
-                    <router-link to="/userIpList">
-                        <group-outlined />
-                        <span>IP</span>
-                    </router-link>
-                </a-menu-item>
-                <a-sub-menu key="sub1">
-                    <template #icon>
-                        <sound-outlined />
-                    </template>
-                    <template #title>Marketing</template>
-                    <a-menu-item key="6" :class="this.$route.name == 'leads' ? 'ant-menu-item-selected' : ''">
-                        <router-link to="/leads">
-                            <file-text-outlined />
-                            <span>Leads</span>
+                <div v-for="menu in menulist" :key="menu">
+                    <a-menu-item v-if="!menu.subMenuTitle" :key="menu.keyIndex"
+                        :class="this.$route.name == menu.routerName ? 'ant-menu-item-selected' : ''">
+                        <router-link :to="menu.link">
+                            <vue-feather :type="menu.icon"></vue-feather>
+                            <span class="title">{{ menu.name }}</span>
                         </router-link>
                     </a-menu-item>
-                    <a-menu-item key="7" :class="this.$route.name == 'proposal' ? 'ant-menu-item-selected' : ''">
-                        <router-link to="/admin/proposal">
-                            <file-outlined />
-                            <span>Proposal</span>
-                        </router-link>
-                    </a-menu-item>
-                </a-sub-menu>
-                <a-sub-menu key="sub2">
-                    <template #icon>
-                        <bar-chart-outlined />
-                    </template>
-                    <template #title>Sales</template>
-                    <a-menu-item key="8" :class="this.$route.name == 'contract' ? 'ant-menu-item-selected' : ''">
-                        <router-link to="/admin/contract">
-                            <file-text-outlined />
-                            <span>Contract</span>
-                        </router-link>
-                    </a-menu-item>
-                    <a-menu-item key="9" :class="this.$route.name == 'old-invoices' ? 'ant-menu-item-selected' : ''">
-                        <router-link to="/invoices">
-                            <credit-card-outlined />
-                            <span>Old Invoices</span>
-                        </router-link>
-                    </a-menu-item>
-                    <a-menu-item key="10" :class="this.$route.name == 'invoice' ? 'ant-menu-item-selected' : ''">
-                        <router-link to="/invoice">
-                            <credit-card-outlined />
-                            <span>Invoices</span>
-                        </router-link>
-                    </a-menu-item>
-                    <a-menu-item key="11" :class="this.$route.name == 'subscriptions' ? 'ant-menu-item-selected' : ''">
-                        <router-link to="/subscription/subscriptions">
-                            <credit-card-outlined />
-                            <span>Subscription</span>
-                        </router-link>
-                    </a-menu-item>
-                </a-sub-menu>
-                 <a-sub-menu key="sub3">
-                    <template #icon>
-                        <customer-service-outlined />
-                    </template>
-                    <template #title>Support</template>
-                    <a-menu-item key="12" :class="this.$route.name == 'ticket' ? 'ant-menu-item-selected' : ''">
-                        <router-link to="/allTicketList">
-                            <customer-service-outlined />
-                            <span>Ticket</span>
-                        </router-link>
-                    </a-menu-item>
-                    <a-menu-item key="13" :class="this.$route.name == 'installation' ? 'ant-menu-item-selected' : ''">
-                        <router-link to="/admin/installation">
-                            <link-outlined />
-                            <span>Installation</span>
-                        </router-link>
-                    </a-menu-item>
-                    <a-menu-item key="13" :class="this.$route.name == 'installation' ? 'ant-menu-item-selected' : ''">
-                        <router-link to="/admin/installation">
-                            <user-outlined />
-                            <span>Trainings</span>
-                        </router-link>
-                    </a-menu-item>
-                </a-sub-menu>
+                    <div v-if="menu.subMenuTitle">
+                        <a-sub-menu :key="menu.submenuKey">
+                            <template #icon>
+                                <vue-feather :type="menu.subMenIcon"></vue-feather>
+                            </template>
+                            <template #title>{{ menu.subMenuTitle }}</template>
+                            <a-menu-item :key="submenu.keyIndex" v-for="submenu in menu.subMenuList"
+                                :class="this.$route.name == submenu.routerName ? 'ant-menu-item-selected' : ''">
+                                <router-link :to="submenu.link">
+                                    <vue-feather :type="submenu.icon"></vue-feather>
+                                    <span class="title">{{ submenu.name }}</span>
+                                </router-link>
+                            </a-menu-item>
+                        </a-sub-menu>
+                    </div>
+                </div>
             </a-menu>
         </a-layout-sider>
         <a-layout>
-            <a-layout-header :theme="this.theme" :class="this.theme == 'light' ? 'bg-white' : ''"
+            <a-layout-header id="header" :theme="this.theme" :class="this.theme == 'light' ? 'bg-white' : ''"
                 class="d-flex justify-content-between align-items-center px-3">
-                <menu-outlined class="trigger" fill="success" @click="collapsed = !collapsed" />
-                <appstore-outlined @click="this.changeTheme('dark')" v-if="this.theme == 'light'" />
-                <appstore-outlined @click="this.changeTheme('light')" v-else />
+                <vue-feather type="menu" class="trigger" :class="this.theme == 'dark' ? 'text-white' : ''"
+                    @click="collapsed = !collapsed"></vue-feather>
+                <div>
+                    <vue-feather type="moon" @click="this.changeTheme('dark')" v-if="this.theme == 'light'"></vue-feather>
+                    <vue-feather type="sun" class="text-white" @click="this.changeTheme('light')" v-else></vue-feather>
+                </div>
             </a-layout-header>
             <slot />
         </a-layout>
     </a-layout>
 </template>
 <script >
-import {
-    AppstoreOutlined,
-    UserAddOutlined,
-    UserOutlined,
-    MenuOutlined,
-    EnvironmentOutlined,
-    GroupOutlined,
-    SoundOutlined,
-    FileTextOutlined,
-    FileOutlined,
-    BarChartOutlined,
-    CreditCardOutlined,
-    CustomerServiceOutlined,
-    LinkOutlined,
-} from '@ant-design/icons-vue';
 import { layoutComputed, layoutMethods } from '@/store/helpers'
 
 export default {
@@ -149,23 +59,129 @@ export default {
     data() {
         return {
             selectedKeys: ['1'],
-            collapsed: false
+            collapsed: false,
+            menulist: [
+                {
+                    keyIndex: 1,
+                    link: '/dashboard',
+                    routerName: 'dashboard',
+                    name: 'Dashboard',
+                    icon: 'grid'
+                },
+                {
+                    keyIndex: 2,
+                    link: '/customer',
+                    routerName: 'customer',
+                    name: 'Customer',
+                    icon: 'user-check'
+                },
+                {
+                    keyIndex: 3,
+                    link: '/customers',
+                    routerName: 'customers-map-view',
+                    name: 'Customer Map View',
+                    icon: 'map-pin'
+                },
+                {
+                    keyIndex: 4,
+                    link: '/reseller',
+                    routerName: 'reseller',
+                    name: 'Reseller',
+                    icon: 'user'
+                },
+                {
+                    keyIndex: 5,
+                    link: '/userIpList',
+                    routerName: 'userIpList',
+                    name: 'IP',
+                    icon: 'server'
+                },
+                {
+                    submenuKey: 'sub1',
+                    subMenuTitle: 'Marketing',
+                    subMenIcon: 'volume-1',
+                    subMenuList: [
+                        {
+                            keyIndex: 6,
+                            link: '/leads',
+                            routerName: 'leads',
+                            name: 'Leads',
+                            icon: 'file-text'
+                        },
+                        {
+                            keyIndex: 7,
+                            link: '/admin/proposal',
+                            routerName: 'proposal',
+                            name: 'Proposal',
+                            icon: 'file-text'
+                        },
+                    ]
+                },
+                {
+                    submenuKey: 'sub2',
+                    subMenuTitle: 'Sales',
+                    subMenIcon: 'bar-chart-2',
+                    subMenuList: [
+                        {
+                            keyIndex: 8,
+                            link: '/admin/contract',
+                            routerName: 'contract',
+                            name: 'Contract',
+                            icon: 'file-minus'
+                        },
+                        {
+                            keyIndex: 9,
+                            link: '/invoices',
+                            routerName: 'old-invoices',
+                            name: 'Old Invoices',
+                            icon: 'sidebar'
+                        },
+                        {
+                            keyIndex: 10,
+                            link: '/invoice',
+                            routerName: 'invoice',
+                            name: 'Invoices',
+                            icon: 'sidebar'
+                        },
+                        {
+                            keyIndex: 11,
+                            link: '/subscription/subscriptions',
+                            routerName: 'subscriptions',
+                            name: 'Subscription',
+                            icon: 'check-circle'
+                        },
+                    ]
+                },
+                {
+                    submenuKey: 'sub3',
+                    subMenuTitle: 'Support',
+                    subMenIcon: 'headphones',
+                    subMenuList: [
+                        {
+                            keyIndex: 12,
+                            link: '/allTicketList',
+                            routerName: 'ticket',
+                            name: 'Ticket',
+                            icon: 'headphones'
+                        },
+                        {
+                            keyIndex: 13,
+                            link: '/admin/installation',
+                            routerName: 'installation',
+                            name: 'Installation',
+                            icon: 'link'
+                        },
+                        {
+                            keyIndex: 14,
+                            link: '/trainings',
+                            routerName: 'trainings',
+                            name: 'Trainings',
+                            icon: 'user'
+                        },
+                    ]
+                },
+            ],
         }
-    },
-    components: {
-        AppstoreOutlined,
-        UserAddOutlined,
-        UserOutlined,
-        MenuOutlined,
-        EnvironmentOutlined,
-        GroupOutlined,
-        SoundOutlined,
-        FileTextOutlined,
-        FileOutlined,
-        BarChartOutlined,
-        CreditCardOutlined,
-        CustomerServiceOutlined,
-        LinkOutlined,
     },
     computed: {
         ...layoutComputed,

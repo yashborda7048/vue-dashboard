@@ -5,7 +5,7 @@
 }
 
 #leftSider .logo {
-  height: 60px;
+  height: 66px;
 }
 #leftSider .logo img {
   height: 36px;
@@ -17,4 +17,22 @@
 #leftSider .ant-menu-dark .ant-menu-item a {
   color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
+}
+#leftSider .ant-menu-inline-collapsed li .ant-menu-title-content span {
+  opacity: 0;
+}
+#leftSider .ant-menu-submenu-title .vue-feather {
+  margin-right: -5px;
+  top: 0px;
+}
+#leftSider .vue-feather {
+  width: 16px;
+  height: 18px;
+  margin-right: 8px;
+  position: relative;
+  top: 4px;
+}
+
+#header {
+  height: 70px;
 }/*# sourceMappingURL=style.css.map */

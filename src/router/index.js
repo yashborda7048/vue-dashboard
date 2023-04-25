@@ -95,6 +95,12 @@ const routes = [
     meta: { authRequired: true },
   },
   {
+    path: '/trainings',
+    name: 'trainings',
+    component: () => import("../views/support/trainings/index.vue"),
+    meta: { authRequired: true },
+  },
+  {
     name: "PageNotFound",
     path: "/:pathMatch(.*)*",
     component: () => import("../views/PageNotFound.vue"),

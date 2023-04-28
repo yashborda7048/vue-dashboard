@@ -7,33 +7,32 @@
                 </div>
                 <div v-else class="d-flex justify-content-center">
                     <img src="../../assets/logo.png" alt="logo">
-                    <h4 class="ms-2" :class="this.theme == 'dark' ? 'text-white' : ''">Yash<span>Borda</span></h4>
+                    <h4 class="ms-2" :class="this.theme == 'dark' ? 'text-white' : ''">Yash Borda</h4>
                 </div>
             </div>
-            <a-menu class="menu-list" v-model="selectedKeys" :theme="this.theme" mode="inline">
-                <div v-for="menu in menulist" :key="menu">
-                    <a-menu-item v-if="!menu.subMenuTitle" :key="menu.keyIndex"
-                        :class="this.$route.name == menu.routerName ? 'ant-menu-item-selected' : ''">
-                        <router-link :to="menu.link">
-                            <vue-feather :type="menu.icon"></vue-feather>
-                            <span class="title">{{ menu.name }}</span>
-                        </router-link>
-                    </a-menu-item>
-                    <div v-if="menu.subMenuTitle">
-                        <a-sub-menu :key="menu.submenuKey">
-                            <template #icon>
-                                <vue-feather :type="menu.subMenIcon"></vue-feather>
-                            </template>
-                            <template #title>{{ menu.subMenuTitle }}</template>
-                            <a-menu-item :key="submenu.keyIndex" v-for="submenu in menu.subMenuList"
-                                :class="this.$route.name == submenu.routerName ? 'ant-menu-item-selected' : ''">
-                                <router-link :to="submenu.link">
-                                    <vue-feather :type="submenu.icon"></vue-feather>
-                                    <span class="title">{{ submenu.name }}</span>
-                                </router-link>
-                            </a-menu-item>
-                        </a-sub-menu>
-                    </div>
+            <a-menu class="menu-list" v-model="selectedKeys" :theme="this.theme" mode="inline" v-for="menu in menulist"
+                :key="menu">
+                <a-menu-item v-if="!menu.subMenuTitle" :key="menu.keyIndex"
+                    :class="this.$route.name == menu.routerName ? 'ant-menu-item-selected' : ''">
+                    <router-link :to="menu.link">
+                        <vue-feather :type="menu.icon"></vue-feather>
+                        <span class="title">{{ menu.name }}</span>
+                    </router-link>
+                </a-menu-item>
+                <div v-if="menu.subMenuTitle">
+                    <a-sub-menu :key="menu.submenuKey">
+                        <template #icon>
+                            <vue-feather :type="menu.subMenIcon"></vue-feather>
+                        </template>
+                        <template #title>{{ menu.subMenuTitle }}</template>
+                        <a-menu-item :key="submenu.keyIndex" v-for="submenu in menu.subMenuList"
+                            :class="this.$route.name == submenu.routerName ? 'ant-menu-item-selected' : ''">
+                            <router-link :to="submenu.link">
+                                <vue-feather :type="submenu.icon"></vue-feather>
+                                <span class="title">{{ submenu.name }}</span>
+                            </router-link>
+                        </a-menu-item>
+                    </a-sub-menu>
                 </div>
             </a-menu>
         </a-layout-sider>

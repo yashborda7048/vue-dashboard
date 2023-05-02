@@ -1,6 +1,6 @@
 <template>
   <layout>
-    <a-layout-content :style="{ margin: '24px 16px', minHeight: '650px' }">
+    <a-layout-content :style="{ margin: '24px 16px', minHeight: '650px'}">
       <router-view></router-view>
     </a-layout-content>
   </layout>

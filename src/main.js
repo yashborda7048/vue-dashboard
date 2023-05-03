@@ -10,6 +10,7 @@ import '@/assets/sass/style.css'
 import VueFeather from 'vue-feather';
 const app = createApp(App);
 
+
 app.component(VueFeather.name, VueFeather);
 app.use(Antd);
 app.use(store);
